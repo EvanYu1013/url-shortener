@@ -6,12 +6,13 @@ namespace App\Http\Controllers;
 
 use App\Models\RequestLog;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class RequestLogController extends Controller
 {
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $rules = [
             'link_id' => ['required', 'exists:links,id'],
             'ip' => ['required', 'ip'],
             'url' => ['required', 'url'],
@@ -27,20 +28,31 @@ class RequestLogController extends Controller
             'language' => ['nullable', 'string'],
             'referer' => ['nullable', 'string', 'url'],
             'meta' => ['nullable', 'string'],
-        ]);
+        ];
 
-        $languageDecoded = json_decode(html_entity_decode($validated['language']), true);
+        $validated = $request->validate($rules);
+
+        $validated['language'] = $this->decodeJsonField($validated['language'] ?? '');
+        $validated['meta'] = $this->decodeJsonField($validated['meta'] ?? '');
+
+        $requestLog = RequestLog::create($validated);
+
+        return response()->json($requestLog, 201);
+    }
+
+    private function decodeJsonField(string $jsonString)
+    {
+        if (empty($jsonString)) {
+            return null;
+        }
+
+        $decoded = json_decode(html_entity_decode($jsonString), true);
         if (json_last_error() !== JSON_ERROR_NONE) {
-            return response()->json(['error' => 'Invalid JSON format for language field.'], 422);
+            throw ValidationException::withMessages([
+                'jsonField' => ['Invalid JSON format.'],
+            ]);
         }
-        $validated['language'] = $languageDecoded;
 
-        try {
-            $requestLog = RequestLog::create($validated);
-
-            return response()->json($requestLog, 201);
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
-        }
+        return $decoded;
     }
 }
