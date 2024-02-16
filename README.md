@@ -10,7 +10,7 @@ This repository contains a Laravel-based system for creating, managing, and redi
 - **URL Parameter Customization**: Enables the addition of custom UTM parameters or any key-value parameters to the target URLs for enhanced tracking.
 - **Multi-Tenant Management**: Supports a multi-tenant architecture, associating each shortened URL with a specific tenant, under which multiple users can operate.
 - **Tagging System**: Facilitates the management and categorization of URLs with one or multiple tags.
-
+- **Custom JavaScript**: Ability to add custom JavaScript code for each shortened URL.
 
 ## Database Schema
 
@@ -22,6 +22,8 @@ The system's database architecture comprises several tables designed to store us
 - `tags`: For categorizing links with tags.
 - `request_logs`: Logs detailed request information for analytics and routing decisions.
 - `rules`: Defines routing rules for dynamic traffic routing based on request information.
+- `scripts`: Used to store custom JavaScript code associated with each link.
+
 
 ## Environment Requirements
 
