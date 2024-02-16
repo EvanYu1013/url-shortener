@@ -6,6 +6,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\LinkResource\Pages;
 use App\Filament\Resources\LinkResource\RelationManagers\ParametersRelationManager;
+use App\Filament\Resources\LinkResource\RelationManagers\ScriptsRelationManager;
 use App\Models\Link;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -36,6 +37,9 @@ class LinkResource extends Resource
                     ->required(),
                 Forms\Components\DateTimePicker::make('valid_until')
                     ->required(),
+                Forms\Components\Select::make('scripts')
+                    ->relationship('scripts', 'name')
+                    ->multiple(),
                 Forms\Components\Toggle::make('status')
                     ->default(true),
             ]);
@@ -84,6 +88,7 @@ class LinkResource extends Resource
     {
         return [
             ParametersRelationManager::class,
+            ScriptsRelationManager::class,
         ];
     }
 

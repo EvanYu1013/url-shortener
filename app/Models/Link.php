@@ -52,4 +52,9 @@ class Link extends Model
     {
         return $this->hasMany(Parameter::class);
     }
+
+    public function scripts(): BelongsToMany
+    {
+        return $this->belongsToMany(Script::class);
+    }
 }

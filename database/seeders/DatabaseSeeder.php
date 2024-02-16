@@ -39,6 +39,13 @@ class DatabaseSeeder extends Seeder
             'status' => true,
         ]);
 
+        $link->scripts()->create([
+            'name' => 'Test Script',
+            'content' => 'console.log("Hello, world!");',
+            'priority' => 1,
+            'status' => true,
+        ]);
+
         $link->parameters()->create([
             'key' => 'foo',
             'value' => 'bar',

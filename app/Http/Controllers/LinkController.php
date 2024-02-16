@@ -14,7 +14,7 @@ class LinkController extends Controller
     public function show(Request $request, $slug)
     {
         $start = microtime(true);
-        $link = Link::with('parameters')
+        $link = Link::with('scripts', 'parameters')
             ->where('slug', $slug)
             ->where('status', true)
             ->where('valid_from', '<=', now())
@@ -30,7 +30,9 @@ class LinkController extends Controller
             'execution_time' => microtime(true) - $start,
         ]);
 
-        return view('links.show', compact('log'));
+        $scripts = $this->getScripts($link);
+
+        return view('links.show', compact('log', 'scripts'));
     }
 
     protected function preparelog($link, $request, $agent): array
@@ -95,5 +97,20 @@ class LinkController extends Controller
         }
 
         return $url;
+    }
+
+    protected function getScripts($link): string
+    {
+        $scripts = $link->scripts()
+            ->where('status', true)
+            ->orderBy('priority', 'desc')
+            ->get();
+
+        $content = '';
+        foreach ($scripts as $script) {
+            $content .= $script->content;
+        }
+
+        return $content;
     }
 }
