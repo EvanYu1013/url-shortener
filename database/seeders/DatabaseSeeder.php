@@ -39,6 +39,11 @@ class DatabaseSeeder extends Seeder
             'status' => true,
         ]);
 
+        $link->parameters()->create([
+            'key' => 'foo',
+            'value' => 'bar',
+        ]);
+
         $link->rules()->create([
             'priority' => 1,
             'type' => 'browser',

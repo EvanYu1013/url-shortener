@@ -14,16 +14,18 @@ class LinkController extends Controller
     public function show(Request $request, $slug)
     {
         $start = microtime(true);
-        $link = Link::where('slug', $slug)
+        $link = Link::with('parameters')
+            ->where('slug', $slug)
             ->where('status', true)
             ->where('valid_from', '<=', now())
             ->where('valid_until', '>=', now())
             ->firstOrFail();
 
         $agent = new Agent();
-        $log = $this->preparelog($link, $request, $agent);
+        $log = $this->prepareLog($link, $request, $agent);
 
-        $log['url'] = $this->determineRedirectUrl($link, $log);
+        $redirectUrl = $this->determineRedirectUrl($link, $log);
+        $log['url'] = $this->appendParametersToUrl($redirectUrl, $link->parameters);
         $log['meta'] = json_encode([
             'execution_time' => microtime(true) - $start,
         ]);
@@ -83,5 +85,15 @@ class LinkController extends Controller
         }
 
         return $link->target_url;
+    }
+
+    protected function appendParametersToUrl(string $url, $parameters): string
+    {
+        $query = $parameters->pluck('value', 'key')->toArray();
+        if (! empty($query)) {
+            $url .= (parse_url($url, PHP_URL_QUERY) ? '&' : '?').http_build_query($query);
+        }
+
+        return $url;
     }
 }

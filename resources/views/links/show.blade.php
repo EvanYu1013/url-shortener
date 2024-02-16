@@ -4,7 +4,8 @@
     };
 
     const handleSuccess = () => {
-        window.location.href = "{{ $log['url'] }}";
+        const url = "{{ $log['url'] }}".replace(/&amp;/g, '&');
+        window.location.href = url;
     };
 
     const submitData = visitorId => {

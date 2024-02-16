@@ -47,4 +47,9 @@ class Link extends Model
     {
         return $this->belongsToMany(Tag::class);
     }
+
+    public function parameters(): HasMany
+    {
+        return $this->hasMany(Parameter::class);
+    }
 }

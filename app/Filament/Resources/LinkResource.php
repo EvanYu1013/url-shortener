@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\LinkResource\Pages;
+use App\Filament\Resources\LinkResource\RelationManagers\ParametersRelationManager;
 use App\Models\Link;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -82,7 +83,7 @@ class LinkResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            ParametersRelationManager::class,
         ];
     }
 
