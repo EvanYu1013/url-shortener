@@ -13,10 +13,11 @@
     "require": {
         "php": "^8.3",
         "filament/filament": "^3.2",
-        "guzzlehttp/guzzle": "^7.2",
         "geoip2/geoip2": "^3.0",
+        "guzzlehttp/guzzle": "^7.2",
         "jenssegers/agent": "^2.6",
         "laravel/framework": "^10.10",
+        "laravel/horizon": "^5.23",
         "laravel/pulse": "^1.0@beta",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8"
