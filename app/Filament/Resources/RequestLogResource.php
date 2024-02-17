@@ -49,6 +49,8 @@ class RequestLogResource extends Resource
                 Forms\Components\TextInput::make('longitude')
                     ->maxLength(255),
                 Forms\Components\TagsInput::make('language'),
+                Forms\Components\TextInput::make('fingerprint')
+                    ->maxLength(32),
                 Forms\Components\TextInput::make('referer')
                     ->maxLength(255),
                 Forms\Components\KeyValue::make('meta'),
@@ -84,6 +86,9 @@ class RequestLogResource extends Resource
                 Tables\Columns\TextColumn::make('longitude')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('language')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('fingerprint')
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('referer')
