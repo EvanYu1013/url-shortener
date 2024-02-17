@@ -38,9 +38,9 @@ class AdminPanelProvider extends PanelProvider
                 Pages\Dashboard::class,
             ])
             ->navigationItems([
-                NavigationItem::make('Performance')
+                NavigationItem::make('Monitor')
                     ->url(fn () => route('pulse'), shouldOpenInNewTab: true)
-                    ->icon('heroicon-o-chart-pie'),
+                    ->icon('heroicon-o-chart-bar'),
                 NavigationItem::make('Jobs')
                     ->url(fn () => route('horizon.index'), shouldOpenInNewTab: true)
                     ->icon('heroicon-o-clock'),
