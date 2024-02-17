@@ -8,6 +8,7 @@ use App\Models\Link;
 use App\Models\Tenant;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,6 +17,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // Truncate all tables
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('users')->truncate();
+        DB::table('tenants')->truncate();
+        DB::table('links')->truncate();
+        DB::table('scripts')->truncate();
+        DB::table('parameters')->truncate();
+        DB::table('rules')->truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
+        // Seed the application's database
         User::factory(10)->create();
 
         $user = User::factory()->create([
@@ -74,6 +86,5 @@ class DatabaseSeeder extends Seeder
             'target_url' => 'https://www.google.com',
             'status' => true,
         ]);
-
     }
 }

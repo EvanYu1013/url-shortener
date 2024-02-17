@@ -29,6 +29,7 @@ The system's database architecture comprises several tables designed to store us
 
 - PHP 8.3 or higher
 - MySQL 8.0 or higher
+- Redis 7.0 or higher
 
 ## Installation
 
@@ -39,6 +40,8 @@ To set up the project, follow these steps:
 3. Set up your `.env` file with the necessary database configurations.
 4. Run `php artisan migrate` to create the database schema.
 5. Ensure the `MAXMIND_LICENSE_KEY` is set in your `.env` file, then execute `php artisan maxmind:download` to download and update the IP location database.
+6. To handle request logging efficiently in high traffic scenarios, execute `php artisan queue:work` to start processing jobs on the queue.
+
 
 ## Usage
 

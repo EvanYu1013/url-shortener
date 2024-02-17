@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Models\RequestLog;
+use App\Jobs\ProcessRequestLog;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
@@ -35,9 +35,9 @@ class RequestLogController extends Controller
         $validated['language'] = $this->decodeJsonField($validated['language'] ?? '');
         $validated['meta'] = $this->decodeJsonField($validated['meta'] ?? '');
 
-        $requestLog = RequestLog::create($validated);
+        ProcessRequestLog::dispatch($validated);
 
-        return response()->json($requestLog, 201);
+        return response()->json(['message' => 'Log submission accepted.'], 202);
     }
 
     private function decodeJsonField(string $jsonString)
