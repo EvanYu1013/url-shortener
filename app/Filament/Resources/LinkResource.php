@@ -6,6 +6,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\LinkResource\Pages;
 use App\Filament\Resources\LinkResource\RelationManagers\ParametersRelationManager;
+use App\Filament\Resources\LinkResource\RelationManagers\RulesRelationManager;
 use App\Filament\Resources\LinkResource\RelationManagers\ScriptsRelationManager;
 use App\Models\Link;
 use Filament\Forms;
@@ -89,6 +90,7 @@ class LinkResource extends Resource
         return [
             ParametersRelationManager::class,
             ScriptsRelationManager::class,
+            RulesRelationManager::class,
         ];
     }
 
