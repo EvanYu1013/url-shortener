@@ -28,8 +28,6 @@ class DatabaseSeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         // Seed the application's database
-        User::factory(10)->create();
-
         $user = User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
