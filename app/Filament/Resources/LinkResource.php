@@ -38,6 +38,13 @@ class LinkResource extends Resource
                     ->required(),
                 Forms\Components\DateTimePicker::make('valid_until')
                     ->required(),
+                Forms\Components\Select::make('tag_id')
+                    ->relationship('tags', 'name')
+                    ->multiple()
+                    ->createOptionForm([
+                        Forms\Components\TextInput::make('name')
+                            ->required(),
+                    ]),
                 Forms\Components\Select::make('scripts')
                     ->relationship('scripts', 'name')
                     ->multiple(),
