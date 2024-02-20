@@ -45,9 +45,21 @@ class LinkResource extends Resource
                         Forms\Components\TextInput::make('name')
                             ->required(),
                     ]),
+
                 Forms\Components\Select::make('scripts')
                     ->relationship('scripts', 'name')
-                    ->multiple(),
+                    ->multiple()
+                    ->createOptionForm([
+                        Forms\Components\TextInput::make('name')
+                            ->required(),
+                        Forms\Components\Textarea::make('content')
+                            ->required(),
+                        Forms\Components\TextInput::make('priority')
+                            ->required()
+                            ->numeric(),
+                        Forms\Components\Toggle::make('status')
+                            ->default(true),
+                    ]),
                 Forms\Components\Toggle::make('status')
                     ->default(true),
             ]);
