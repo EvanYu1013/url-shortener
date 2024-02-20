@@ -18,9 +18,29 @@ class RulesRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('type')
+                Forms\Components\Select::make('type')
+                    ->required()
+                    ->options([
+                        'platform' => __('Platform'),
+                        'browser' => __('Browser'),
+                        'device' => __('Device'),
+                        'country' => __('Country'),
+                        'city' => __('City'),
+                        'referer' => __('Referer'),
+                        'ip' => __('IP'),
+                        'fingerprint' => __('Fingerprint'),
+                    ]),
+                Forms\Components\TextInput::make('value')
                     ->required()
                     ->maxLength(255),
+                Forms\Components\TextInput::make('priority')
+                    ->required()
+                    ->numeric(),
+                Forms\Components\TextInput::make('target_url')
+                    ->required()
+                    ->url(),
+                Forms\Components\Toggle::make('status')
+                    ->default(true),
             ]);
     }
 

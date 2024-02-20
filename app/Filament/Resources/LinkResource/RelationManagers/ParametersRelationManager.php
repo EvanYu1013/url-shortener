@@ -20,6 +20,13 @@ class ParametersRelationManager extends RelationManager
             ->schema([
                 Forms\Components\TextInput::make('key')
                     ->required()
+                    ->datalist([
+                        'utm_source',
+                        'utm_medium',
+                        'utm_campaign',
+                        'utm_term',
+                        'utm_content',
+                    ])
                     ->maxLength(255),
                 Forms\Components\TextInput::make('value')
                     ->required()
