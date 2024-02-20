@@ -34,10 +34,8 @@ class LinkResource extends Resource
                 Forms\Components\TextInput::make('target_url')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\DateTimePicker::make('valid_from')
-                    ->required(),
-                Forms\Components\DateTimePicker::make('valid_until')
-                    ->required(),
+                Forms\Components\DateTimePicker::make('valid_from'),
+                Forms\Components\DateTimePicker::make('valid_until'),
                 Forms\Components\Select::make('tag_id')
                     ->relationship('tags', 'name')
                     ->multiple()
